@@ -1,4 +1,4 @@
-package com.am.jsa.identity.controller;
+package com.am.jsa.identity.service;
 
 import com.am.jsa.common.SHAHash;
 import com.am.jsa.identity.entity.User;

@@ -1,6 +1,6 @@
 package com.am.jsa.common.config;
 
-import com.am.jsa.identity.controller.AuthenticationService;
+import com.am.jsa.identity.service.AuthenticationService;
 import com.am.jsa.logger.AmLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
