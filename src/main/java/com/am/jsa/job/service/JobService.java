@@ -9,6 +9,9 @@ import com.am.jsa.job.entity.JobCandidateApplication;
 import com.am.jsa.job.repository.JobApplicationRepository;
 import com.am.jsa.job.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -30,8 +33,9 @@ public class JobService {
     @Autowired
     CompanyPaymentRepository companyPaymentRepository;
 
-    public List<Job> getJobs(){
-        return jobRepository.findAll();
+    public Page<Job> getJobs(int page, int size){
+        Pageable pageable= PageRequest.of(page,size);
+        return jobRepository.findAll(pageable);
     }
 
     public Long getJobCount(){
@@ -47,6 +51,7 @@ public class JobService {
         CompanyPayments companyPayments=job.getCompany().getLatestPayment();
         companyPayments.setNoOfJobPosted(companyPayments.getNoOfJobPosted()+1);
         companyPayments.setCompany(job.getCompany());
+        companyPayments.setReferenceInChildren();
         companyPaymentRepository.save(companyPayments);
         return jobRepository.read(job.getId());
     }

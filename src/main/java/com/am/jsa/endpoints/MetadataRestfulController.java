@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(UrlConstant.BASE_SERVICE_URL + UrlConstant.METADATA)
+@CrossOrigin
 public class MetadataRestfulController {
 	
 	@Autowired

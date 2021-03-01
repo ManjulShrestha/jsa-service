@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 @RestController
 @RequestMapping(UrlConstant.BASE_SERVICE_URL + UrlConstant.FILE_URL)
+@CrossOrigin
 public class FileUploadRestfulService {
 
     @Autowired

@@ -94,7 +94,7 @@ public class IdentityService {
         return userRepository.getUserRolesAll(userId);
     }*/
 
-    public List<Role> getUserRoles(Integer userId) {
+    public List<Role> getUserRoles(Long userId) {
         return userRepository.getUserRoles(userId);
     }
 

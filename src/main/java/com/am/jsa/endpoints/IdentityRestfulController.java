@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(UrlConstant.BASE_SERVICE_URL + UrlConstant.IDENTITY_SERVICE_URL)
+@CrossOrigin
 public class IdentityRestfulController {
 
     @Autowired
@@ -61,7 +62,7 @@ public class IdentityRestfulController {
 
 
     @GetMapping("/username-duplication-check")
-    public Boolean checkUsernameDuplication(@RequestParam String userName) {
+    public Boolean checkUsernameDuplication(@RequestParam("username") String userName) {
         if (userName.equals(null) | userName.equals("")) {
             return false;
         }
@@ -77,13 +78,13 @@ public class IdentityRestfulController {
     }
 
     @GetMapping("{id}/roles")
-    public ResponseEntity getRolesByUserId(@PathVariable Integer id) {
+    public ResponseEntity getRolesByUserId(@PathVariable Long id) {
         AmLogger.info(this.getClass(), "getRolesByUserId");
         return AmResponse.successResponse(identityService.getUserRoles(id));
     }
 
     @PutMapping("activate-user")
-    public ResponseEntity activateUser(@RequestParam int uuId) {
+    public ResponseEntity activateUser(@RequestParam("uuid") int uuId) {
         AmLogger.info(this.getClass(), "activateUser");
         return AmResponse.successResponse(identityService.activateUser(uuId));
     }

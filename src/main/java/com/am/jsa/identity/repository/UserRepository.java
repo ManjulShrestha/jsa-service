@@ -17,8 +17,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("FROM User WHERE uuId = ?1")
     User getUserByUUid(Integer uuId);
 
-    @Query("FROM User as user LEFT JOIN FETCH user.roleList WHERE user.id = ?1")
-    List<Role> getUserRoles(Integer userId);
+    @Query("Select user.roleList FROM User  user  WHERE user.id = ?1")
+    List<Role> getUserRoles(Long userId);
 
     @Query("Select count(entity) FROM User entity where entity.email like ?1")
     int checkIfEmailExists(String email);

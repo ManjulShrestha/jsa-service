@@ -16,24 +16,18 @@ import java.util.List;
 
 @RestController
 @RequestMapping(UrlConstant.BASE_SERVICE_URL + UrlConstant.JOB_SERVICE_URL)
+@CrossOrigin
 public class JobRestfulController {
 
 	
 	@Autowired
     private JobService jobService;
 
-//	@GetMapping
-//	("")
-//	
-//	public ResponseEntity getAllJob(@QueryParam("page") Integer page,@QueryParam("size") Integer size) {
-//		AmLogger.info(this.getClass(), "getAllJob");
-//		searchCriteria=new SearchCriteria();
-//		searchCriteria.setSortAscending(true);
-//		searchCriteria.setActive(true);
-//		searchCriteria.setPageNumber(page);
-//		searchCriteria.setSize(size);
-//		return AmResponse.successResponse(jobService.getJobs(searchCriteria));
-//	}
+	@GetMapping("")
+	public ResponseEntity getAllJob(@RequestParam("page") int page,@RequestParam("size") int size) {
+		AmLogger.info(this.getClass(), "getAllJob");
+		return AmResponse.successResponse(jobService.getJobs(page,size));
+	}
 
     @GetMapping("{id}")    
     public ResponseEntity getJobById(@PathVariable("id") Integer id) {

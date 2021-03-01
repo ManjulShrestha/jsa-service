@@ -14,20 +14,17 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(UrlConstant.BASE_SERVICE_URL + UrlConstant.COMPANY_SERVICE_URL)
+@CrossOrigin
 public class CompanyRestfulController {
 	
 	@Autowired
     private CompanyService companyService;
 
-//	@GetMapping("")	
-//	public ResponseEntity getAllCompanies(@QueryParam("page") Long page, @QueryParam("size") Long size) {
-//		AmLogger.info(this.getClass(), "getAllCompanies");
-//		searchCriteria=new SearchCriteria();
-//		searchCriteria.setSortAscending(true);
-//		searchCriteria.setPageNumber(page);
-//		searchCriteria.setSize(size);
-//		return AmResponse.successResponse(companyService.getCompanies(searchCriteria));
-//	}
+	@GetMapping("")
+	public ResponseEntity getAllCompanies(@RequestParam("page") int page, @RequestParam("size") int size) {
+		AmLogger.info(this.getClass(), "getAllCompanies");
+		return AmResponse.successResponse(companyService.getCompanies(page,size));
+	}
 
 	@PostMapping("")	
 	public ResponseEntity addCompany(@RequestBody  Company company) {

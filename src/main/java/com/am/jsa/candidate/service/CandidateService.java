@@ -11,7 +11,11 @@ import com.am.jsa.identity.repository.UserRepository;
 import com.am.jsa.job.entity.Job;
 import com.am.jsa.job.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
@@ -32,13 +36,16 @@ public class CandidateService {
     @Autowired
     JobRepository jobRepository;
 
-    public List<Candidate> getCandidate(){
-        return candidateRepository.findAll();
+    public Page<Candidate> getCandidate(int page, int size){
+        Pageable pageable= PageRequest.of(page,size);
+        return candidateRepository.findAll(pageable);
     }
 
+    @Transactional
     public Candidate saveCandidate(Candidate candidate){
         CandidateResume resume=new CandidateResume();
         candidate.setCandidateResume(resume);
+        candidate.setReferenceInChildren();
         candidateRepository.save(candidate);
         User user=userRepository.read(candidate.getUser().getId());
         user.setFirstTimeLogin(false);
@@ -48,6 +55,7 @@ public class CandidateService {
     }
 
     public Candidate updateCandidate(Candidate candidate){
+        candidate.setReferenceInChildren();
         candidateRepository.save(candidate);
         return candidateRepository.read(candidate.getId());
     }
@@ -96,6 +104,7 @@ public class CandidateService {
             jobs.add(job.getId());
             candidate.setJobFavouriteSetId(jobs);
         }
+        candidate.setReferenceInChildren();
         candidateRepository.save(candidate);
         return candidate.getJobFavouriteSetId();
     }
@@ -110,6 +119,7 @@ public class CandidateService {
                     break;
                 }
             }
+            candidate.setReferenceInChildren();
             candidateRepository.save(candidate);
         }
         return candidate.getJobFavouriteSetId();

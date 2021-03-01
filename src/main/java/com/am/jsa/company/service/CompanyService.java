@@ -14,7 +14,11 @@ import com.am.jsa.metadata.service.MetadataService;
 import com.am.jsa.payment.PaymentServiceImpl;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -45,15 +49,18 @@ public class CompanyService {
     @Autowired
     RoleRepository roleRepository;
 
-    public List<Company> getCompanies(){
-       List<Company> companies=companyRepository.findAll();
+    public Page<Company> getCompanies(int page, int size){
+        Pageable pageable= PageRequest.of(page,size);
+       Page<Company> companies=companyRepository.findAll(pageable);
         for(Company company:companies){
             company.setJobCount(jobRepository.getJobCount(company.getId()));
         }
         return companies;
     }
 
+    @Transactional
     public Company saveCompany(Company company){
+        company.setReferenceInChildren();
         companyRepository.save(company);
         User user=userRepository.read(company.getUser().getId());
         user.setFirstTimeLogin(false);
@@ -62,6 +69,7 @@ public class CompanyService {
     }
 
     public Company updateCompany(Company company){
+        company.setReferenceInChildren();
         companyRepository.save(company);
         return companyRepository.read(company.getId());
     }
@@ -107,6 +115,7 @@ public class CompanyService {
             company.setCandidateFollowSetId(candidateId);
         }
         company.setFollowers(company.getFollowers()+1);
+        company.setReferenceInChildren();
         companyRepository.save(company);
         return true;
     }
@@ -126,6 +135,7 @@ public class CompanyService {
             company.setCandidateViewSetId(candidates);
         }
         company.setViewers(company.getViewers()+1);
+        company.setReferenceInChildren();
         companyRepository.save(company);
         return true;
     }
@@ -147,6 +157,7 @@ public class CompanyService {
         companyPayments.setPaymentDetail(paymentService.chargeCreditCard(companyPayments.getPaymentDetail()));
         setJobSlots(companyPayments);
         companyPayments.setNoOfJobPosted(0);
+        companyPayments.setReferenceInChildren();
         companyPaymentRepository.save(companyPayments);
         addRoleToUser(companyPayments);
         return companyPaymentRepository.read(companyPayments.getId());

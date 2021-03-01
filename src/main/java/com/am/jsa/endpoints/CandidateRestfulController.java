@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(UrlConstant.BASE_SERVICE_URL + UrlConstant.CANDIDATE_SERVICE_URL)
+@CrossOrigin
 public class CandidateRestfulController {
 	
 	@Autowired
@@ -22,15 +23,11 @@ public class CandidateRestfulController {
 	@Autowired
 	private CandidateResumeService candidateResumeService;
 
-//	@GetMapping("")
-//	public ResponseEntity getAllCandidate(@RequestParam("page") Integer page, @RequestParam("size") Integer size) {
-//		AmLogger.info(this.getClass(), "getAllCandidate");
-//		searchCriteria=new SearchCriteria();
-//		searchCriteria.setSortAscending(true);
-//		searchCriteria.setPageNumber(page);
-//		searchCriteria.setSize(size);
-//		return AmResponse.successResponse(candidateService.getCandidate(searchCriteria));
-//	}
+	@GetMapping("")
+	public ResponseEntity getAllCandidate(@RequestParam("page") int page, @RequestParam("size") int size) {
+		AmLogger.info(this.getClass(), "getAllCandidate");
+		return AmResponse.successResponse(candidateService.getCandidate(page,size));
+	}
 
 	@PostMapping("")
 	public ResponseEntity addCandidate(@RequestBody Candidate candidate) {
