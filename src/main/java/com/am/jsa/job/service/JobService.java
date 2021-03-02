@@ -33,9 +33,9 @@ public class JobService {
     @Autowired
     CompanyPaymentRepository companyPaymentRepository;
 
-    public Page<Job> getJobs(int page, int size){
+    public List<Job> getJobs(int page, int size){
         Pageable pageable= PageRequest.of(page,size);
-        return jobRepository.findAll(pageable);
+        return jobRepository.findAll(pageable).getContent();
     }
 
     public Long getJobCount(){

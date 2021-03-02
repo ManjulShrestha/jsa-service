@@ -36,9 +36,9 @@ public class CandidateService {
     @Autowired
     JobRepository jobRepository;
 
-    public Page<Candidate> getCandidate(int page, int size){
+    public List<Candidate> getCandidate(int page, int size){
         Pageable pageable= PageRequest.of(page,size);
-        return candidateRepository.findAll(pageable);
+        return candidateRepository.findAll(pageable).getContent();
     }
 
     @Transactional

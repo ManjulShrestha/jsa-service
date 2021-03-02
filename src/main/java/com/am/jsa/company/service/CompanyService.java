@@ -49,9 +49,9 @@ public class CompanyService {
     @Autowired
     RoleRepository roleRepository;
 
-    public Page<Company> getCompanies(int page, int size){
+    public List<Company> getCompanies(int page, int size){
         Pageable pageable= PageRequest.of(page,size);
-       Page<Company> companies=companyRepository.findAll(pageable);
+        List<Company> companies=companyRepository.findAll(pageable).getContent();
         for(Company company:companies){
             company.setJobCount(jobRepository.getJobCount(company.getId()));
         }

@@ -29,7 +29,7 @@ public class JobRestfulController {
 		return AmResponse.successResponse(jobService.getJobs(page,size));
 	}
 
-    @GetMapping("{id}")    
+    @GetMapping("/{id}")
     public ResponseEntity getJobById(@PathVariable("id") Integer id) {
         AmLogger.info(this.getClass(), "getJobById");
         return AmResponse.successResponse(jobService.getJobById(id));
@@ -47,13 +47,13 @@ public class JobRestfulController {
 		return AmResponse.successResponse(jobService.updateJob(job));
 	}
 
-	@GetMapping("count")
+	@GetMapping("/count")
 	public ResponseEntity getJobCount() {
 		AmLogger.info(this.getClass(), "getAllJob");
 		return AmResponse.successResponse(jobService.getJobCount());
 	}
 
-	@GetMapping("count/{id}")
+	@GetMapping("/count/{id}")
 	public ResponseEntity getJobCountByCategory(@PathVariable("id") Integer id) {
 		AmLogger.info(this.getClass(), "getJobCountByCategory");
 		List<Integer> ids=new ArrayList<>();
@@ -73,19 +73,19 @@ public class JobRestfulController {
 		return AmResponse.successResponse(jobService.viewJob(id,candidate));
 	}
 
-	@GetMapping("applied-candidates/{id}")
+	@GetMapping("/applied-candidates/{id}")
 	public ResponseEntity getAppliedCandidate(@PathVariable("id") Integer companyId) {
 		AmLogger.info(this.getClass(), "getAppliedCandidate");
 		return AmResponse.successResponse(jobService.getAppliedCandidates(companyId));
 	}
 
-	@PutMapping("shortlist")
+	@PutMapping("/shortlist")
 	public ResponseEntity shortListCandidate(@RequestBody JobCandidateApplication jobCandidateApplication) {
 		AmLogger.info(this.getClass(), "shortListCandidate");
 		return AmResponse.successResponse(jobService.shortlistCandidate(jobCandidateApplication));
 	}
 
-	@GetMapping("job-by-category")
+	@GetMapping("/job-by-category")
 	public ResponseEntity getJobByCategory(@RequestParam("id") List<Integer> categoryIds) {
 		AmLogger.info(this.getClass(), "getJobByCategory");
 		return AmResponse.successResponse(jobService.getJobByCategory(categoryIds));
