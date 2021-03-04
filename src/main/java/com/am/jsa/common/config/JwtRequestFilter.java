@@ -68,7 +68,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     private boolean isPathAuthorized(String path){
         boolean authorized= false;
-        if(path.contains("authenticate")){
+        if(path.contains("identity") || path.contains("job")){
             authorized=true;
         }
         return authorized;

@@ -4,6 +4,7 @@ import com.am.jsa.common.entity.BaseEntity;
 import com.am.jsa.common.entity.EmbeddedName;
 import com.am.jsa.metadata.entity.UserType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -20,7 +21,6 @@ public class User extends BaseEntity {
             @AttributeOverride(name = "lastName", column = @Column(name = "LAST_NAME")) })
     private EmbeddedName nameEnglish;
 
-    @JsonIgnore
     @Column(name = "PASSWORD")
     private String password;
 
@@ -69,6 +69,7 @@ public class User extends BaseEntity {
         this.nameEnglish = nameEnglish;
     }
 
+    @JsonIgnoreProperties
     public String getPassword() {
         return password;
     }

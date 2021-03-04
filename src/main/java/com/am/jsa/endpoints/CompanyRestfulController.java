@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(UrlConstant.BASE_SERVICE_URL + UrlConstant.COMPANY_SERVICE_URL)
-@CrossOrigin
 public class CompanyRestfulController {
 	
 	@Autowired

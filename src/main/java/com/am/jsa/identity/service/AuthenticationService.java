@@ -22,6 +22,7 @@ public class AuthenticationService {
     private UserRepository userRepository;
 
     public User challenge(User user) {
+        System.out.println(SHAHash.hashPassword(user.getPassword()));
         User challengingUser = userRepository.validateUser(user.getUserName(), SHAHash.hashPassword(user.getPassword()));
         if (challengingUser == null)
             return null;

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(UrlConstant.BASE_SERVICE_URL + UrlConstant.CANDIDATE_SERVICE_URL)
-@CrossOrigin
 public class CandidateRestfulController {
 	
 	@Autowired
@@ -48,7 +47,7 @@ public class CandidateRestfulController {
 	}
 
 	@GetMapping("user-id/{id}")
-	public ResponseEntity getCandidateByUserId(@PathVariable("id") Integer userId) {
+	public ResponseEntity getCandidateByUserId(@PathVariable("id") Long userId) {
 		AmLogger.info(this.getClass(), "getCandidateByUserId");
 		return AmResponse.successResponse(candidateService.getCandidateByUserId(userId));
 	}

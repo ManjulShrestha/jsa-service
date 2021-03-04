@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query("FROM User WHERE userName = ?1 AND password = ?2")
+    @Query("FROM User WHERE (userName = ?1 OR email = ?1) AND password = ?2")
     User validateUser(String userName, String password);
 
     @Query("FROM User WHERE uuId = ?1")

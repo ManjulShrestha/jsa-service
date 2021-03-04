@@ -95,6 +95,7 @@ public class Candidate extends BaseEntity {
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "USER_ID")
+	@JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
 	private User user;
 
 	@ManyToMany(fetch = FetchType.LAZY, targetEntity = Job.class)

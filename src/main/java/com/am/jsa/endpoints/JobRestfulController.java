@@ -16,7 +16,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(UrlConstant.BASE_SERVICE_URL + UrlConstant.JOB_SERVICE_URL)
-@CrossOrigin
 public class JobRestfulController {
 
 	

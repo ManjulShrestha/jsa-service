@@ -95,6 +95,7 @@ public class Company extends BaseEntity {
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "USER_ID")
+	@JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
 	private User user;
 
 	@Transient

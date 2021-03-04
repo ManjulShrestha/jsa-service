@@ -14,7 +14,7 @@ public interface CandidateRepository extends JpaRepository<Candidate, Long> {
 	Candidate read(Long id);
 
 	@Query("FROM Candidate entity where entity.user.id = :userId")
-	Candidate getCandidateByUserId(@Param("userId") Integer userId);
+	Candidate getCandidateByUserId(@Param("userId") Long userId);
 
 	@Query("SELECT count(entity) FROM Job entity")
 	Long getCandidateCount();

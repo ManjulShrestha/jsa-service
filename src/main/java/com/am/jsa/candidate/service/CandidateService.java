@@ -60,7 +60,7 @@ public class CandidateService {
         return candidateRepository.read(candidate.getId());
     }
 
-    public Candidate getCandidateByUserId(int userId){
+    public Candidate getCandidateByUserId(Long userId){
         return candidateRepository.getCandidateByUserId(userId);
     }
 
