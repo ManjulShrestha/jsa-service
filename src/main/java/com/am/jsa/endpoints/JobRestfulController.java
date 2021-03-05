@@ -22,7 +22,7 @@ public class JobRestfulController {
 	@Autowired
     private JobService jobService;
 
-	@GetMapping("")
+	@GetMapping("/pageable")
 	public ResponseEntity getAllJob(@RequestParam("page") int page,@RequestParam("size") int size) {
 		AmLogger.info(this.getClass(), "getAllJob");
 		return AmResponse.successResponse(jobService.getJobs(page,size));

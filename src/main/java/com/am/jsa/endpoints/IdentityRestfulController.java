@@ -29,7 +29,6 @@ public class IdentityRestfulController {
 
     @PostMapping("user")
     public ResponseEntity addUser(@RequestBody User user){
-        user.setPassword(SHAHash.hashPassword(user.getPassword()));
         return AmResponse.successResponse(identityService.addUser(user));
     }
 

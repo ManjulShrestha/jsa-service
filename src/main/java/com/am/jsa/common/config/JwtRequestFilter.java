@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -40,20 +39,16 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 if (user== null) {
                     AmLogger.printData("[Authorization] Request for " + path + " unauthorized");
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-                    //return;
                     SecurityContextHolder.getContext().setAuthentication(null);
                 } else {
                     AmLogger.printData("[Authorization] Request for " + path + " authorized");
                     response.getHeaders(HttpHeaders.AUTHORIZATION).add(extractUserFromHeader(authorizationKey));
-
                     UserDetails userDetails=new User(user.getUserName(),user.getPassword(),new ArrayList<>());
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                             userDetails, null, userDetails.getAuthorities());
                     usernamePasswordAuthenticationToken
                             .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
                     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-
                 }
             } else {
                 AmLogger.printData("[Authorization] Request for " + path + " unauthorized bearer not found");
@@ -68,7 +63,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     private boolean isPathAuthorized(String path){
         boolean authorized= false;
-        if(path.contains("identity") || path.contains("job")){
+        if(path.contains("identity") || path.contains("pageable") || path.contains("metadata")){
             authorized=true;
         }
         return authorized;

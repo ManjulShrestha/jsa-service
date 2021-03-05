@@ -22,7 +22,7 @@ public class CandidateRestfulController {
 	@Autowired
 	private CandidateResumeService candidateResumeService;
 
-	@GetMapping("")
+	@GetMapping("pageable")
 	public ResponseEntity getAllCandidate(@RequestParam("page") int page, @RequestParam("size") int size) {
 		AmLogger.info(this.getClass(), "getAllCandidate");
 		return AmResponse.successResponse(candidateService.getCandidate(page,size));

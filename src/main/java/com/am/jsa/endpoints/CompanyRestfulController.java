@@ -19,7 +19,7 @@ public class CompanyRestfulController {
 	@Autowired
     private CompanyService companyService;
 
-	@GetMapping("")
+	@GetMapping("pageable")
 	public ResponseEntity getAllCompanies(@RequestParam("page") int page, @RequestParam("size") int size) {
 		AmLogger.info(this.getClass(), "getAllCompanies");
 		return AmResponse.successResponse(companyService.getCompanies(page,size));
