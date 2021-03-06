@@ -52,7 +52,7 @@ public class AuthenticationService {
         return null;
     }
 
-    private String generateToken(String id, String issuer, String subject, long ttlMillis) {
+    public String generateToken(String id, String issuer, String subject, long ttlMillis) {
 
         // The JWT signature algorithm we will be using to sign the token
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;

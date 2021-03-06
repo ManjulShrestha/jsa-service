@@ -22,6 +22,7 @@ public class User extends BaseEntity {
     private EmbeddedName nameEnglish;
 
     @Column(name = "PASSWORD")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(name = "ACTIVE")
@@ -69,7 +70,6 @@ public class User extends BaseEntity {
         this.nameEnglish = nameEnglish;
     }
 
-    @JsonIgnoreProperties
     public String getPassword() {
         return password;
     }

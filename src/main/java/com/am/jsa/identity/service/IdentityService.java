@@ -24,6 +24,9 @@ public class IdentityService {
     @Autowired
     RoleRepository roleRepository;
 
+    @Autowired
+    AuthenticationService authenticationService;
+
     public  User addUser(User user){
         String roleName= "";
         if(user.getUserType().getId()== ConstantMetadata.USER_TYPE_COMPANY) {
@@ -39,6 +42,8 @@ public class IdentityService {
         user.setDeleted(false);
         user.setLoginAttempt(0);
         user.setFirstTimeLogin(true);
+        user.setToken(authenticationService.generateToken(String.valueOf(user.getId()),
+                "division-", "", 3600000));
         userRepository.save(user);
         return user;
     }
