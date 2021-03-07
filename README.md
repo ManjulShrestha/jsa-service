@@ -19,7 +19,10 @@ Job - Job can only be added by company that has a subscription, job can be viewe
 Payment - Payment is acheived using stripe, it still needs some work to be done in the front end to complete payment module.
 
 # jsa-service
-This is a service code build in spring-boot using hibernate and Mariadb as datbase.
+This code is build in spring-boot using hibernate and Mariadb as database.
 
 To run the code you can use your favourite IDE, I personally use Intellij, it can also run using the mvn command
 ./mvnw spring-boot:run
+
+# deployment
+Currently the service is deployed in AWS in a linux environment with very low specification for testing
